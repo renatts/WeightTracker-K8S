@@ -37,26 +37,3 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-
-- stage: Deploy
-  displayName: Deploy 
-  dependsOn: Build
-  jobs:
-  - deployment: Deploy
-    displayName: Deploy
-    variables: 
-    - group: Environment variables
-    pool:
-      name: weighttracker-pool
-      vmImage: $(vmImageName)
-    environment: 'weighttrackeracr.default'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: KubernetesManifest@0
-            displayName: Create imagePullSecret
-            inputs:
-              action: createSecret
-              secretName: $(imagePullSecret)
-              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
