@@ -48,6 +48,7 @@ stages:
   - deployment: Deploy
     displayName: Deploy
     pool:
+      name: weighttracker-pool
       vmImage: $(vmImageName)
     environment: 'renattsWeightTrackerK8S.default'
     strategy:
