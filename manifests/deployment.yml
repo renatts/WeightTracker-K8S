@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: renattsweighttrackerks 
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: renattsweighttrackerks
@@ -16,4 +16,70 @@ spec:
         - name: renattsweighttrackerks 
           image: weighttrackeracr.azurecr.io/renattsweighttrackerks
           ports:
-          - containerPort: 80
+          - containerPort: 8080
+          env:
+          - name: COOKIE_ENCRYPT_PWD
+            valueFrom:
+              secretKeyRef:
+                name: secrets
+                key: COOKIE_ENCRYPT_PWD
+          - name: HOST
+            valueFrom:
+              secretKeyRef:
+                name: secrets
+                key: HOST
+          - name: HOST_URL
+            valueFrom:
+              secretKeyRef:
+                name: secrets
+                key: HOST_URL
+          - name: NODE_ENV
+            valueFrom:
+              secretKeyRef:
+                name: secrets
+                key: NODE_ENV
+          - name: OKTA_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: secrets
+                key: OKTA_CLIENT_ID
+          - name: OKTA_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: secrets
+                key: OKTA_CLIENT_SECRET
+          - name: OKTA_ORG_URL
+            valueFrom:
+              secretKeyRef:
+                name: secrets
+                key: OKTA_ORG_URL
+          - name: PG_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: secrets
+                key: PG_DATABASE
+          - name: PG_HOST
+            valueFrom:
+              secretKeyRef:
+                name: secrets
+                key: PG_HOST
+          - name: PG_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: secrets
+                key: PG_PASSWORD
+          - name: PG_PORT
+            valueFrom:
+              secretKeyRef:
+                name: secrets
+                key: PG_PORT
+          - name: PG_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: secrets
+                key: PG_USERNAME
+          - name: PORT
+            valueFrom:
+              secretKeyRef:
+                name: secrets
+                key: PORT
