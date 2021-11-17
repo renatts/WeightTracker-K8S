@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: renattsweighttrackerks 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: renattsweighttrackerks
+  template:
+    metadata:
+      labels:
+        app: renattsweighttrackerks 
+    spec:
+      containers:
+        - name: renattsweighttrackerks 
+          image: weighttrackeracr.azurecr.io/renattsweighttrackerks
+          ports:
+          - containerPort: 80
