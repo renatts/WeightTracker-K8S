@@ -17,6 +17,7 @@ spec:
           image: weighttrackeracr.azurecr.io/renattsweighttrackerks
           ports:
           - containerPort: 80
+            protocol: TCP
           env:
           - name: COOKIE_ENCRYPT_PWD
             valueFrom:
