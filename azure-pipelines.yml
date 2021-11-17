@@ -43,7 +43,7 @@ stages:
 - stage: Deploy
   displayName: CD
   dependsOn: Build
-
+  condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
   jobs:
   - deployment: Deploy
     displayName: Deploy
