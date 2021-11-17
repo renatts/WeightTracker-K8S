@@ -5,7 +5,6 @@ resources:
 - repo: self
 
 variables:
-- group: Environment variables
 - name: 'dockerRegistryServiceConnection'
   value: '59fa7cc3-2bb6-4564-9bc0-c0f2ab087e07'
 - name: 'imageRepository'
@@ -38,3 +37,26 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+
+- stage: Deploy
+  displayName: Deploy 
+  dependsOn: Build
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    variables: 
+    - group: Environment variables
+    pool:
+      name: weighttracker-pool
+      vmImage: $(vmImageName)
+    environment: 'weighttrackeracr.default'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: KubernetesManifest@0
+            displayName: Create imagePullSecret
+            inputs:
+              action: createSecret
+              secretName: $(imagePullSecret)
+              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
