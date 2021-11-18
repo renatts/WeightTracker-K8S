@@ -69,7 +69,7 @@ stages:
             inputs:
              kubernetesServiceEndpoint: 'k8s'
              forceUpdateConfigMap: true
-             configMapName: weighttracker-cm
+             configMapName: 'weighttracker-cm'
              configMapArguments: |
                --from-literal=HOST=$(HOST) --from-literal=NODE_ENV=$(NODE_ENV) --from-literal=OKTA_ORG_URL=$(OKTA_ORG_URL) --from-literal=PG_PORT=$(PG_PORT) --from-literal=PORT=$(PORT) 
          
@@ -79,9 +79,9 @@ stages:
               action: 'createSecret'
               kubernetesServiceConnection: 'k8s'
               secretType: 'generic'
-              secretName: 'secrets'
+              secretName: 'weighttracker-secrets'
               secretArguments: |
-                --from-literal=COOKIE_ENCRYPT_PWD=$(COOKIE_ENCRYPT_PWD) --from-literal=HOST=$(HOST) --from-literal=NODE_ENV=$(NODE_ENV) --from-literal=HOST_URL=$(HOST_URL) --from-literal=OKTA_CLIENT_ID=$(OKTA_CLIENT_ID) --from-literal=OKTA_CLIENT_SECRET=$(OKTA_CLIENT_SECRET) --from-literal=OKTA_ORG_URL=$(OKTA_ORG_URL) --from-literal=PG_DATABASE=$(PG_DATABASE) --from-literal=PG_HOST=$(PG_HOST) --from-literal=PG_PASSWORD=$(PG_PASSWORD) --from-literal=PG_PORT=$(PG_PORT) --from-literal=PG_USERNAME=$(PG_USERNAME) --from-literal=PORT=$(PORT) 
+                --from-literal=COOKIE_ENCRYPT_PWD=$(COOKIE_ENCRYPT_PWD) --from-literal=HOST_URL=$(HOST_URL) --from-literal=OKTA_CLIENT_ID=$(OKTA_CLIENT_ID) --from-literal=OKTA_CLIENT_SECRET=$(OKTA_CLIENT_SECRET) --from-literal=PG_DATABASE=$(PG_DATABASE) --from-literal=PG_HOST=$(PG_HOST) --from-literal=PG_PASSWORD=$(PG_PASSWORD) --from-literal=PG_USERNAME=$(PG_USERNAME) 
                 
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
