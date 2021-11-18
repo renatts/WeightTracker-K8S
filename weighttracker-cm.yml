@@ -5,8 +5,8 @@ metadata:
   namespace: default
 data:
   HOST: 0.0.0.0
-  NODE_ENV: development
-  OKTA_ORG_URL: https://dev-68949660.okta.com
+  NODE_ENV: "development"
+  OKTA_ORG_URL: "https://dev-68949660.okta.com"
   PG_PORT: "5432"
-  PG_HOST: postgresql-weighttracker.postgres.database.azure.com
+  PG_HOST: "postgresql-weighttracker.postgres.database.azure.com"
   PORT: "8080"
