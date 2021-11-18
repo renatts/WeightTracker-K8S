@@ -70,9 +70,7 @@ stages:
              connectionType: 'Kubernetes Service Connection'
              kubernetesServiceEndpoint: 'k8s'
              command: 'create'
-             secretType: 'dockerRegistry'
-             containerRegistryType: 'Azure Container Registry'
-             configMapName: 'weighttracker-cm'
+             secretType: 'generic'
              configMapArguments: |
                --from-literal=HOST=$(HOST) --from-literal=NODE_ENV=$(NODE_ENV) --from-literal=OKTA_ORG_URL=$(OKTA_ORG_URL) --from-literal=PG_PORT=$(PG_PORT) --from-literal=PORT=$(PORT) 
          
@@ -97,4 +95,3 @@ stages:
                 $(imagePullSecret)
               containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
-
