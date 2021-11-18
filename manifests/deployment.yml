@@ -15,6 +15,7 @@ spec:
       containers:
         - name: renattsweighttrackerks 
           image: weighttrackeracr.azurecr.io/renattsweighttrackerks
+          imagePullPolicy: Always
           ports:
           - containerPort: 80
             protocol: TCP
