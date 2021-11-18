@@ -69,7 +69,7 @@ stages:
             inputs:
              kubernetesServiceEndpoint: 'k8s'
              forceUpdateConfigMap: true
-             configMapName: data
+             configMapName: weighttracker-cm
              configMapArguments: |
                --from-literal=HOST=$(HOST) --from-literal=NODE_ENV=$(NODE_ENV) --from-literal=OKTA_ORG_URL=$(OKTA_ORG_URL) --from-literal=PG_PORT=$(PG_PORT) --from-literal=PORT=$(PORT) 
          
