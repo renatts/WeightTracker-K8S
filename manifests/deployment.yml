@@ -29,17 +29,17 @@ spec:
               configMapKeyRef:
                 name: weighttracker-cm
                 key: OKTA_ORG_URL
-           - name: NODE_ENV
+          - name: NODE_ENV
             valueFrom:
               configMapKeyRef:
                 name: weighttracker-cm
                 key: NODE_ENV      
-           - name: PG_PORT
+          - name: PG_PORT
             valueFrom:
               configMapKeyRef:
                 name: weighttracker-cm
                 key: PG_PORT
-           - name: PORT
+          - name: PORT
             valueFrom:
               configMapKeyRef:
                 name: weighttracker-cm
