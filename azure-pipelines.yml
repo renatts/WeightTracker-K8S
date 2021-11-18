@@ -67,10 +67,9 @@ stages:
           - task: Kubernetes@1
             displayName: Create configMap
             inputs:
-             connectionType: 'Kubernetes Service Connection'
              kubernetesServiceEndpoint: 'k8s'
-             command: 'create'
-             secretType: 'generic'
+             forceUpdateConfigMap: true
+             configMapName: data
              configMapArguments: |
                --from-literal=HOST=$(HOST) --from-literal=NODE_ENV=$(NODE_ENV) --from-literal=OKTA_ORG_URL=$(OKTA_ORG_URL) --from-literal=PG_PORT=$(PG_PORT) --from-literal=PORT=$(PORT) 
          
