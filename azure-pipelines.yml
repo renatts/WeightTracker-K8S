@@ -64,6 +64,18 @@ stages:
               secretName: $(imagePullSecret)
               dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
 
+          - task: Kubernetes@1
+            displayName: Create configMap
+            inputs:
+             connectionType: 'Kubernetes Service Connection'
+             kubernetesServiceEndpoint: 'k8s'
+             command: 'create'
+             secretType: 'dockerRegistry'
+             containerRegistryType: 'Azure Container Registry'
+             configMapName: 'weighttracker-cm'
+             configMapArguments: |
+               --from-literal=HOST=$(HOST) --from-literal=NODE_ENV=$(NODE_ENV) --from-literal=OKTA_ORG_URL=$(OKTA_ORG_URL) --from-literal=PG_PORT=$(PG_PORT) --from-literal=PORT=$(PORT) 
+         
           - task: KubernetesManifest@0
             displayName: Create secrets
             inputs:
