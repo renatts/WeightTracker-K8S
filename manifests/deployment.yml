@@ -39,6 +39,11 @@ spec:
               configMapKeyRef:
                 name: weighttracker-cm
                 key: PG_PORT
+          - name: PG_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: weighttracker-cm
+                key: PG_HOST      
           - name: PORT
             valueFrom:
               configMapKeyRef:
@@ -48,40 +53,35 @@ spec:
           - name: HOST_URL
             valueFrom:
               secretKeyRef:
-                name: secrets
+                name: weighttracker-secrets
                 key: HOST_URL         
           - name: OKTA_CLIENT_ID
             valueFrom:
               secretKeyRef:
-                name: secrets
+                name: weighttracker-secrets
                 key: OKTA_CLIENT_ID
           - name: OKTA_CLIENT_SECRET
             valueFrom:
               secretKeyRef:
-                name: secrets
+                name: weighttracker-secrets
                 key: OKTA_CLIENT_SECRET
           - name: COOKIE_ENCRYPT_PWD
             valueFrom:
               secretKeyRef:
-                name: secrets
+                name: weighttracker-secrets
                 key: COOKIE_ENCRYPT_PWD
           - name: PG_DATABASE
             valueFrom:
               secretKeyRef:
-                name: secrets
+                name: weighttracker-secrets
                 key: PG_DATABASE
-          - name: PG_HOST
-            valueFrom:
-              secretKeyRef:
-                name: secrets
-                key: PG_HOST
           - name: PG_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: secrets
+                name: weighttracker-secrets
                 key: PG_PASSWORD
           - name: PG_USERNAME
             valueFrom:
               secretKeyRef:
-                name: secrets
+                name: weighttracker-secrets
                 key: PG_USERNAME
