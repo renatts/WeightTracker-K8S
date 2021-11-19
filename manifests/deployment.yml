@@ -35,16 +35,16 @@ spec:
               configMapKeyRef:
                 name: weighttracker-cm
                 key: NODE_ENV      
-          - name: PG_PORT
+          - name: PGPORT
             valueFrom:
               configMapKeyRef:
                 name: weighttracker-cm
-                key: PG_PORT
-          - name: PG_HOST
+                key: PGPORT
+          - name: PGHOST
             valueFrom:
               configMapKeyRef:
                 name: weighttracker-cm
-                key: PG_HOST      
+                key: PGHOST      
           - name: PORT
             valueFrom:
               configMapKeyRef:
@@ -71,18 +71,18 @@ spec:
               secretKeyRef:
                 name: weighttracker-secrets
                 key: COOKIE_ENCRYPT_PWD
-          - name: PG_DATABASE
+          - name: PGDATABASE
             valueFrom:
               secretKeyRef:
                 name: weighttracker-secrets
-                key: PG_DATABASE
-          - name: PG_PASSWORD
+                key: PGDATABASE
+          - name: PGPASSWORD
             valueFrom:
               secretKeyRef:
                 name: weighttracker-secrets
-                key: PG_PASSWORD
-          - name: PG_USERNAME
+                key: PGPASSWORD
+          - name: PGUSERNAME
             valueFrom:
               secretKeyRef:
                 name: weighttracker-secrets
-                key: PG_USERNAME
+                key: PGUSERNAME
