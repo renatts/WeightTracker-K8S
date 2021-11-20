@@ -69,7 +69,7 @@ stages:
             inputs:
              kubernetesServiceEndpoint: 'k8s'
              forceUpdateConfigMap: true
-             configMapName: 'weighttracker-cm'
+             configMapName: 'weighttracker-cm.yml'
              configMapArguments: |
                --from-literal=HOST=$(HOST) --from-literal=NODE_ENV=$(NODE_ENV) --from-literal=PGHOST=$(PGHOST) --from-literal=OKTA_ORG_URL=$(OKTA_ORG_URL) --from-literal=PGPORT=$(PGPORT) --from-literal=PORT=$(PORT) 
          
@@ -79,7 +79,7 @@ stages:
               action: 'createSecret'
               kubernetesServiceConnection: 'k8s'
               secretType: 'generic'
-              secretName: 'weighttracker-secrets'
+              secretName: 'weighttracker-secrets.yml'
               secretArguments: |
                 --from-literal=COOKIE_ENCRYPT_PWD=$(COOKIE_ENCRYPT_PWD) --from-literal=HOST_URL=$(HOST_URL) --from-literal=OKTA_CLIENT_ID=$(OKTA_CLIENT_ID) --from-literal=OKTA_CLIENT_SECRET=$(OKTA_CLIENT_SECRET) --from-literal=PGDATABASE=$(PGDATABASE) --from-literal=PGPASSWORD=$(PGPASSWORD) --from-literal=PGUSERNAME=$(PGUSERNAME) 
                 
