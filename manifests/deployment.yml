@@ -15,12 +15,12 @@ spec:
       containers:
         - name: renattsweighttrackerks 
           image: weighttrackeracr.azurecr.io/renattsweighttrackerks
-          imagePullPolicy: Always
+          imagePullPolicy: "Always"
           ports:
           - containerPort: 80
             protocol: TCP
           envFrom: 
-          - configRef:
+          - configMapRef:
              name: weighttracker-cm
           - secretRef:
              name: weighttracker-secrets
