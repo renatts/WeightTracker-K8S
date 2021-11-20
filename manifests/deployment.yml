@@ -21,7 +21,7 @@ spec:
             protocol: TCP
           envFrom: 
           - configMapRef:
-             name: weighttracker-cm
+             name: weighttracker-cm.yml
           - secretRef:
-             name: weighttracker-secrets
+             name: weighttracker-secrets.yml
           
