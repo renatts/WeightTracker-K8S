@@ -8,4 +8,4 @@ EXPOSE $port
 
 RUN npm install
 
-CMD npm run initdb && npm run dev
+CMD npm run dev
