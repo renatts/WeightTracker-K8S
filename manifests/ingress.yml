@@ -12,6 +12,6 @@ spec:
       - path: /
         pathType: Prefix
         backend:
-          serviceName: renattsweighttrackerks
+          serviceName: weighttrackercicdks
           servicePort: 80
   ingressClassName: nginx             
