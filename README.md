@@ -28,6 +28,14 @@
 ## Create Azure Kubernetes Service
 * Create [Azure Kubernetes Cluster](https://portal.azure.com/#create/microsoft.aks)
 
+### Install Nginx Ingress to your kubernetes cluster using this commands in Azure CLI:
+* `az login`
+* `NAMESPACE=ingress-nginx`
+* `helm install ingress-nginx ingress-nginx/ingress-nginx --create-namespace --namespace $NAMESPACE`
+* `helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx`
+* `helm repo update`
+* `kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.4/deploy/static/provider/cloud/deploy.yaml`
+
 ## Create PostgreSQL service
 * Create [PostgreSQL](https://portal.azure.com/#create/Microsoft.PostgreSQLServer) service in [Azure portal](https://portal.azure.com)
 * Add firewall rules
