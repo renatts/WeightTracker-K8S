@@ -1,20 +1,20 @@
 apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: renattsweighttrackerks 
+  name: weighttrackercicdks 
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: renattsweighttrackerks
+      app: weighttrackercicdks
   template:
     metadata:
       labels:
-        app: renattsweighttrackerks 
+        app: weighttrackercicdks 
     spec:
       containers:
-        - name: renattsweighttrackerks 
-          image: weighttrackeracr.azurecr.io/renattsweighttrackerks
+        - name: weighttrackercicdks 
+          image: weighttrackeracr.azurecr.io/weighttrackercicdks:latest
           imagePullPolicy: "Always"
           ports:
           - containerPort: 8080
@@ -24,4 +24,3 @@ spec:
              name: weighttracker-cm.yml
           - secretRef:
              name: weighttracker-secrets.yml
-          
