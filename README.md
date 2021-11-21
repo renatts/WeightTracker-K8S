@@ -22,14 +22,14 @@
 * `sudo reboot`
 
 ## Create Azure Container Registry
-* Create ![Azure Container Registry](https://portal.azure.com/#create/Microsoft.ContainerRegistry) for storing containers in remote repositories
+* Create [Azure Container Registry](https://portal.azure.com/#create/Microsoft.ContainerRegistry) for storing containers in remote repositories
 
 
 ## Create Azure Kubernetes Service
-* Create ![Azure Kubernetes Cluster](https://portal.azure.com/#create/microsoft.aks)
+* Create [Azure Kubernetes Cluster](https://portal.azure.com/#create/microsoft.aks)
 
 ## Create PostgreSQL service
-* Create ![PostgreSQL](https://portal.azure.com/#create/Microsoft.PostgreSQLServer) service in ![Azure portal](https://portal.azure.com)
+* Create [PostgreSQL](https://portal.azure.com/#create/Microsoft.PostgreSQLServer) service in [Azure portal](https://portal.azure.com)
 * Add firewall rules
 
 ---
