@@ -1,0 +1,104 @@
+# Deploy to Azure Kubernetes Service
+# Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: '204bae6a-7a67-4033-b7fd-55de234c3dce'
+  imageRepository: 'weighttrackercicdks'
+  containerRegistry: 'weighttrackeracr.azurecr.io'
+  dockerfilePath: '**/Dockerfile'
+  tag: '$(Build.BuildId)'
+  imagePullSecret: 'weighttrackeracr1944180c-auth'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+
+stages:
+- stage: Build
+  displayName: CI
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      name: weighttracker-pool
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
+    - upload: manifests
+      artifact: manifests
+
+- stage: Deploy
+  displayName: CD
+  dependsOn: Build
+  variables:
+  - group: Environment variables
+  condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    pool:
+      name: weighttracker-pool
+      vmImage: $(vmImageName)
+    environment: 'WeightTrackerCICDK8S.default'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: KubernetesManifest@0
+            displayName: Create imagePullSecret
+            inputs:
+              action: 'createSecret'
+              kubernetesServiceConnection: 'aks-weighttracker-cluster-default-3424'
+              secretType: 'dockerRegistry'
+              secretName: '$(imagePullSecret)'
+              dockerRegistryEndpoint: '$(dockerRegistryServiceConnection)'
+          
+          - task: Kubernetes@1
+            displayName: Create configMap
+            inputs:
+              kubernetesServiceEndpoint: 'aks-weighttracker-cluster-default-3424'
+              configMapName: 'weighttracker-cm.yml'
+              forceUpdateConfigMap: true
+              configMapArguments: |
+                --from-literal=HOST=$(HOST) --from-literal=NODE_ENV=$(NODE_ENV) --from-literal=PGHOST=$(PGHOST) --from-literal=OKTA_ORG_URL=$(OKTA_ORG_URL) --from-literal=PGPORT=$(PGPORT) --from-literal=PORT=$(PORT)
+         
+          - task: KubernetesManifest@0
+            displayName: Create secrets
+            inputs:
+              action: 'createSecret'
+              kubernetesServiceConnection: 'aks-weighttracker-cluster-default-3424'
+              secretType: 'generic'
+              secretName: 'weighttracker-secrets.yml'
+              secretArguments: |
+                --from-literal=COOKIE_ENCRYPT_PWD=$(COOKIE_ENCRYPT_PWD) --from-literal=HOST_URL=$(HOST_URL) --from-literal=OKTA_CLIENT_ID=$(OKTA_CLIENT_ID) --from-literal=OKTA_CLIENT_SECRET=$(OKTA_CLIENT_SECRET) --from-literal=PGDATABASE=$(PGDATABASE) --from-literal=PGPASSWORD=$(PGPASSWORD) --from-literal=PGUSERNAME=$(PGUSERNAME)
+               
+          - task: KubernetesManifest@0
+            displayName: Deploy to Kubernetes cluster
+            inputs:
+              action: 'deploy'
+              kubernetesServiceConnection: 'aks-weighttracker-cluster-default-3424'
+              manifests: |
+                $(Pipeline.Workspace)/manifests/deployment.yml
+                $(Pipeline.Workspace)/manifests/service.yml
+                $(Pipeline.Workspace)/manifests/ingress.yml
+              containers: '$(containerRegistry)/$(imageRepository):$(tag)'
+              imagePullSecrets: '$(imagePullSecret)'
+
