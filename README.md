@@ -3,8 +3,8 @@
 [![Build Status](https://dev.azure.com/parennut/Weight-Tracker-CICD/_apis/build/status/renatts.WeightTracker-Docker?branchName=master)](https://dev.azure.com/parennut/Weight-Tracker-CICD/_build/latest?definitionId=4&branchName=master)
 
 ##  Infrastructure requirements
-<img width="500" src="https://user-images.githubusercontent.com/83014719/142743760-be29b5dc-819e-412a-9e3b-4d43673a7404.png">
-<img width="500" src="https://user-images.githubusercontent.com/83014719/142743761-af2dad40-18d6-446a-be2a-ccc8bae640fa.png">
+<img width="500" height="200" src="https://user-images.githubusercontent.com/83014719/142743760-be29b5dc-819e-412a-9e3b-4d43673a7404.png">
+<img width="500" height="200" src="https://user-images.githubusercontent.com/83014719/142743761-af2dad40-18d6-446a-be2a-ccc8bae640fa.png">
 
 
 ## Create the agent machine 
